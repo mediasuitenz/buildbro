@@ -11,6 +11,7 @@ var fs         = require('fs')
   , watchify   = require('watchify')
   , chalk      = require('chalk')
   , exec       = require('child_process').exec
+  , version    = require('./package.json').version
 
 var messages = {
   bundleBuilt: 'bundle file built successfully',
@@ -108,7 +109,7 @@ process.on('uncaughtException', function(err) {
 });
 
 program
-  .version('0.0.1')
+  .version(version)
   .option('-e, --es6', 'Transform es6 code to es5 using traceur')
   .option('-d, --debug', 'Include source files')
   .option('-m, --minify', 'Minify the resulting bundle')
