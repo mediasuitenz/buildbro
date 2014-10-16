@@ -35,7 +35,7 @@ function server(webroot, port) {
   var child
   return {
     start: function () {
-      child = exec(__dirname + '/node_modules/.bin/http-server -p ' + port + ' ' + webroot)
+      child = exec(process.cwd() + '/node_modules/.bin/http-server -p ' + port + ' ' + webroot)
       child.stdout.pipe(process.stdout)
       child.stderr.pipe(process.stderr)
     },
@@ -55,7 +55,7 @@ function handleBundling(bundler, dest, message) {
 }
 
 function jshint(terminate) {
-  var child = exec(__dirname + '/node_modules/.bin/jshint ' + __dirname + '/.')
+  var child = exec(process.cwd() + '/node_modules/.bin/jshint ' + process.cwd() + '/.')
   child.stdout.on('data', function (data) {
     console.error(chalk.red.bold('JSHINT ERRORS:'))
     process.stdout.write(chalk.red(data))
@@ -96,7 +96,7 @@ function run(source, dest) {
   handleBundling(bundler, dest, messages.bundleBuilt)
 
   if (program.serve) {
-    var webroot = __dirname + '/' + program.serve
+    var webroot = process.cwd() + '/' + program.serve
     var port = program.port || 8080
     httpServer = server(webroot, port)
     httpServer.start()
