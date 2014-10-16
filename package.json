@@ -1,6 +1,6 @@
 {
   "name": "buildbro",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Browserify build tool and server",
   "main": "index.js",
   "scripts": {
