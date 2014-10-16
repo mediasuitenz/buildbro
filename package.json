@@ -24,5 +24,13 @@
   "preferGlobal": "true",
   "bin": {
     "buildbro": "index.js"
+  },
+  "dependencies": {
+    "brfs": "^1.2.0",
+    "browserify": "^6.1.0",
+    "chalk": "^0.5.1",
+    "es6ify": "^1.4.0",
+    "uglifyify": "^2.5.0",
+    "watchify": "^2.0.0"
   }
 }
