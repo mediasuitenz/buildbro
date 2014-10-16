@@ -64,6 +64,8 @@ function jshint(terminate) {
 }
 
 function run(source, dest) {
+  source = process.cwd() + '/' + source
+  dest   = process.cwd() + '/' + dest
 
   var httpServer
 
