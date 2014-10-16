@@ -12,6 +12,10 @@ var fs         = require('fs')
   , chalk      = require('chalk')
   , exec       = require('child_process').exec
   , version    = require('./package.json').version
+  , path       = require('path')
+  , util       = require('util')
+
+var node_modules = path.join(__dirname, 'node_modules', '.bin')
 
 var messages = {
   bundleBuilt: 'bundle file built successfully',
@@ -32,10 +36,11 @@ function logSuccess(message) {
 }
 
 function server(webroot, port) {
+  var server = path.join(node_modules, 'http-server')
   var child
   return {
     start: function () {
-      child = exec(process.cwd() + '/node_modules/.bin/http-server -p ' + port + ' ' + webroot)
+      child = exec(util.format('%s -p %s %s', server, port, webroot))
       child.stdout.pipe(process.stdout)
       child.stderr.pipe(process.stderr)
     },
@@ -54,12 +59,13 @@ function handleBundling(bundler, dest, message) {
     .on('error', function (err) { console.error(err) })
 }
 
-function jshint(terminate) {
-  var child = exec(process.cwd() + '/node_modules/.bin/jshint ' + process.cwd() + '/.')
+function jshint(terminateOnFail) {
+  var hinter = path.join(node_modules, 'jshint')
+  var child = exec(util.format('%s %s/.', hinter, process.cwd()))
   child.stdout.on('data', function (data) {
     console.error(chalk.red.bold('JSHINT ERRORS:'))
     process.stdout.write(chalk.red(data))
-    if (terminate) process.exit(1)
+    if (terminateOnFail) process.exit(1)
   })
 }
 
