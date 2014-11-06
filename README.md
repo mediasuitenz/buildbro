@@ -1,6 +1,10 @@
 BUILD IT BRO!!
 ==============
 
+[![NPM](https://nodei.co/npm/buildbro.png?downloads=true&stars=true)](https://nodei.co/npm/buildbro/)
+
+[![Media Suite](http://mediasuite.co.nz/ms-badge.png)](http://mediasuite.co.nz)
+
 An easy commandline tool to configure, build, and serve Browserify projects
 
 `buildbro --help` for usage information
