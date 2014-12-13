@@ -37,7 +37,7 @@ function logSuccess(message) {
 }
 
 function server(webroot, port) {
-  var server = path.join(node_modules, 'http-server')
+  var server = path.resolve('http-server')
   var child
   return {
     start: function () {
