@@ -81,7 +81,7 @@ function run(source, dest) {
     debug: !!program.debug,
     cache: {},
     packageCache: {},
-    fullPaths: true
+    fullPaths: !!program.fullpaths
   })
 
   if (program.es6) bundler = bundler.transform(es6ify)
@@ -120,6 +120,7 @@ program
   .version(version)
   .option('-e, --es6', 'Transform es6 code to es5 using traceur')
   .option('-d, --debug', 'Include source files')
+  .option('-f, --fullpaths', 'Expand Browserify ids to full paths')
   .option('-m, --minify', 'Minify the resulting bundle')
   .option('-b, --brfs', 'Use brfs transform')
   .option('-j, --jshint', 'Run jshint before every build')
