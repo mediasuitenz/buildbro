@@ -15,6 +15,7 @@ Options:
 -V, --version         output the version number
 -e, --es6             Transform es6 code to es5 using traceur
 -d, --debug           Include source files
+-f, --fullpaths       Expand Browserify ids to full paths
 -m, --minify          Minify the resulting bundle
 -b, --brfs            Use brfs transform
 -j, --jshint          Run jshint before every build
