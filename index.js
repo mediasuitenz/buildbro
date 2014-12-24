@@ -24,7 +24,8 @@ var messages = {
   requestReceivedFor: 'Request received for ',
   contentType: 'text/plain',
   error404: 'Error 404: File not found',
-  serverListening: 'server listening on port '
+  serverListening: 'server listening on port ',
+  buildFailed: 'bundle file could not be built'
 }
 
 function logNotice(message) {
@@ -52,11 +53,15 @@ function server(webroot, port) {
 
 function handleBundling(bundler, dest, message) {
   bundler.bundle()
+    .on('error', function (err) {
+      console.error(chalk.red(messages.buildFailed))
+      console.error(err.message)
+      console.error(err.stack)
+    })
     .pipe(fs.createWriteStream(dest))
     .on('finish', function () {
       logSuccess(message)
     })
-    .on('error', function (err) { console.error(err) })
 }
 
 function jshint(terminateOnFail) {
@@ -112,8 +117,13 @@ function run(source, dest) {
 }
 
 process.on('uncaughtException', function(err) {
-  console.error(chalk.red('Caught exception: ' + err.message));
-  console.trace()
+  console.error(chalk.red('Unexpected exception:'))
+  if (err.message) {
+    console.error(chalk.red(err.message))
+  }
+  if (err.stack) {
+    console.error(err.stack)
+  }
 });
 
 program
