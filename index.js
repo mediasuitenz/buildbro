@@ -24,7 +24,8 @@ var messages = {
   requestReceivedFor: 'Request received for ',
   contentType: 'text/plain',
   error404: 'Error 404: File not found',
-  serverListening: 'server listening on port '
+  serverListening: 'server listening on port ',
+  buildFailed: 'bundle file could not be built'
 }
 
 function logNotice(message) {
@@ -52,11 +53,15 @@ function server(webroot, port) {
 
 function handleBundling(bundler, dest, message) {
   bundler.bundle()
+    .on('error', function (err) {
+      console.error(chalk.red(messages.buildFailed))
+      console.error(err.message)
+      console.error(err.stack)
+    })
     .pipe(fs.createWriteStream(dest))
     .on('finish', function () {
       logSuccess(message)
     })
-    .on('error', function (err) { console.error(err) })
 }
 
 function jshint(terminateOnFail) {
@@ -88,7 +93,14 @@ function run(source, dest) {
 
   if (program.brfs) bundler = bundler.transform(brfs)
 
-  if (program.minify) bundler = bundler.transform(uglifyify)
+  if (program.minifyglobal || program.minify) {
+    var minificationOptions = {
+      sourcemap: false,
+      global: !!program.minifyglobal
+    }
+
+    bundler = bundler.transform(minificationOptions, uglifyify)
+  }
 
   bundler
     .require(require.resolve(source), { entry: true })
@@ -112,8 +124,13 @@ function run(source, dest) {
 }
 
 process.on('uncaughtException', function(err) {
-  console.error(chalk.red('Caught exception: ' + err.message));
-  console.trace()
+  console.error(chalk.red('Unexpected exception:'))
+  if (err.message) {
+    console.error(chalk.red(err.message))
+  }
+  if (err.stack) {
+    console.error(err.stack)
+  }
 });
 
 program
@@ -122,6 +139,7 @@ program
   .option('-d, --debug', 'Include source files')
   .option('-f, --fullpaths', 'Expand Browserify ids to full paths')
   .option('-m, --minify', 'Minify the resulting bundle')
+  .option('-mg --minifyglobal', 'Minify and include all node_modules when minifying - may cause hard to trace errors')
   .option('-b, --brfs', 'Use brfs transform')
   .option('-j, --jshint', 'Run jshint before every build')
   .option('-w, --watch', 'Watch files for changes and update bundle')

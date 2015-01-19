@@ -17,12 +17,18 @@ Options:
 -d, --debug           Include source files
 -f, --fullpaths       Expand Browserify ids to full paths
 -m, --minify          Minify the resulting bundle
+-mg --minifyglobal    Minify and include all node_modules when minifying - may cause hard to trace errors
 -b, --brfs            Use brfs transform
 -j, --jshint          Run jshint before every build
 -w, --watch           Watch files for changes and update bundle
 -s, --serve [folder]  Serve up files in the given directory
 -p, --port [port]     Set which port should be used when using the -s, --serve option
 ```
+
+**minifyglobal**
+minifyglobal will run the UglifyJS2 transform on all required node modules.
+
+Try falling back to the ``minify`` flag if you encountering errors during build.
 
 Example:
 ```
