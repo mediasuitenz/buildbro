@@ -13,7 +13,7 @@ Options:
 ```
 -h, --help            output usage information
 -V, --version         output the version number
--e, --es6             Transform es6 code to es5 using traceur
+-e, --es6             Transform es6 code to es5 using 6to5
 -d, --debug           Include source files
 -f, --fullpaths       Expand Browserify ids to full paths
 -m, --minify          Minify the resulting bundle

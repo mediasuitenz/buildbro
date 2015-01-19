@@ -118,7 +118,7 @@ process.on('uncaughtException', function(err) {
 
 program
   .version(version)
-  .option('-e, --es6', 'Transform es6 code to es5 using traceur')
+  .option('-e, --es6', 'Transform es6 code to es5 using 6to5')
   .option('-d, --debug', 'Include source files')
   .option('-f, --fullpaths', 'Expand Browserify ids to full paths')
   .option('-m, --minify', 'Minify the resulting bundle')
