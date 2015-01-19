@@ -145,7 +145,7 @@ program
   .option('-d, --debug', 'Include source files')
   .option('-f, --fullpaths', 'Expand Browserify ids to full paths')
   .option('-m, --minify', 'Minify the resulting bundle')
-  .option('-mg --minifyglobal', 'Minify and include all node_modules when minifying - may cause hard to trace errors')
+  .option('-g, --minifyglobal', 'Minify and include all node_modules when minifying - may cause hard to trace errors')
   .option('-b, --brfs', 'Use brfs transform')
   .option('-j, --jshint', 'Run jshint before every build')
   .option('-w, --watch', 'Watch files for changes and update bundle')
