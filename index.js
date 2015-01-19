@@ -93,8 +93,14 @@ function run(source, dest) {
 
   if (program.brfs) bundler = bundler.transform(brfs)
 
-  if (program.minifyglobal) bundler = bundler.transform({global:true}, uglifyify)
-  else if (program.minify) bundler = bundler.transform(uglifyify)
+  if (program.minifyglobal || program.minify) {
+    var minificationOptions = {
+      sourcemap: false,
+      global: !!program.minifyglobal
+    }
+
+    bundler = bundler.transform(minificationOptions, uglifyify)
+  }
 
   bundler
     .require(require.resolve(source), { entry: true })
