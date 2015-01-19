@@ -31,7 +31,7 @@
     "browserify": "^6.1.0",
     "chalk": "^0.5.1",
     "commander": "^2.3.0",
-    "http-server": "^0.7.2",
+    "static-server": "2.0.0",
     "uglifyify": "^3.0.0",
     "watchify": "^2.0.0"
   }

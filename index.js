@@ -37,16 +37,22 @@ function logSuccess(message) {
 }
 
 function server(webroot, port) {
-  var server = path.join(node_modules, 'http-server')
-  var child
+  var StaticServer = require('static-server')
+
+  var server = new StaticServer({
+    rootPath: webroot,
+    name: 'buildbro-server',
+    port: port
+  })
+
   return {
     start: function () {
-      child = exec(util.format('%s -p %s %s', server, port, webroot))
-      child.stdout.pipe(process.stdout)
-      child.stderr.pipe(process.stderr)
-    },
-    stop: function () {
-      child.kill('SIGHUP')
+      server.start(function () {
+        console.log('Server listening on port ', server.port);
+      })
+      server.on('request', function (req, res) {
+        console.log(req)
+      })
     }
   }
 }
