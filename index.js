@@ -4,7 +4,7 @@
 
 var fs         = require('fs')
   , browserify = require('browserify')
-  , es6ify     = require('es6ify')
+  , to5ify    = require('6to5ify')
   , uglifyify  = require('uglifyify')
   , program    = require('commander')
   , brfs       = require('brfs')
@@ -84,7 +84,7 @@ function run(source, dest) {
     fullPaths: !!program.fullpaths
   })
 
-  if (program.es6) bundler = bundler.transform(es6ify)
+  if (program.es6) bundler = bundler.transform(to5ify)
 
   if (program.brfs) bundler = bundler.transform(brfs)
 
