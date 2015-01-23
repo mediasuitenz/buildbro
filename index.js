@@ -51,7 +51,13 @@ function server(webroot, port) {
         console.log('Server listening on port ', server.port);
       })
       server.on('request', function (req, res) {
-        console.log(req)
+        var logMessage = util.format(
+          '%s "%s" %s',
+          (new Date()).toUTCString(),
+          chalk.cyan(req.method + ' ' + req.url),
+          req.elapsedTime
+        )
+        console.log(logMessage)
       })
     }
   }
