@@ -17,7 +17,7 @@ Options:
 -d, --debug           Include source files
 -f, --fullpaths       Expand Browserify ids to full paths
 -m, --minify          Minify the resulting bundle
--mg --minifyglobal    Minify and include all node_modules when minifying - may cause hard to trace errors
+-g  --minifyglobal    Minify and include all node_modules when minifying - may cause hard to trace errors
 -b, --brfs            Use brfs transform
 -j, --jshint          Run jshint before every build
 -w, --watch           Watch files for changes and update bundle
